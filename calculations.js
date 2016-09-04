@@ -2,24 +2,44 @@ var AvocadoNamespace = AvocadoNamespace || {};
 
 AvocadoNamespace.AvoCalc = function() {
   var avgCA = 1.08;
+  var avgWeight = 7.6;
   var priceInput = document.getElementById("valueinput");
   var calculateEnter = document.getElementById("calculateenter");
-  var priceOutput = document.getElementById("valueoutput");
+  var priceOutput = document.getElementById("priceoutput");
+  var weightOutput = document.getElementById("weightoutput");
 
   var calculatePrice = function() {
     var inputtedPrice = parseInt(document.getElementById('valueinput').value);
-    var priceInAvocados = inputtedPrice / avgCA;
+    var priceInAvocados = Math.round(inputtedPrice / avgCA);
     return priceInAvocados;
   }
 
-  var displayPrice = function() {
-    var price = calculatePrice();
-    console.log(price);
-    priceOutput.innerHTML = price;
+  var calculateWeight = function(numAvocados) {
+    var weight = Math.round(numAvocados * avgWeight);
+    return weight;
+  }
+
+  var displayResults = function() {
+    var totalAvocados = calculatePrice();
+    var totalWeight = calculateWeight(totalAvocados);
+    // priceOutput.innerHTML = totalAvocados;
+    priceOutput.innerHTML = totalAvocados;
+    weightOutput.innerHTML = totalWeight + " oz.";
   }
 
   var init = function() {
-    console.log("init has been called");
+    console.log("App Ready");
+    var clickCalculate = calculateEnter.addEventListener("click", function(event) {
+      event.preventDefault();
+      nameSpace.displayResults();
+    });
+
+    var enterCalculate = priceInput.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode == 13) {
+        nameSpace.displayResults();
+      }
+    });
   }
 
   var oPublic = {
@@ -27,7 +47,7 @@ AvocadoNamespace.AvoCalc = function() {
     avgCA: avgCA,
     priceInput: priceInput,
     calculateEnter: calculateEnter,
-    displayPrice: displayPrice
+    displayResults: displayResults
   }
 
   return oPublic;
@@ -37,16 +57,3 @@ AvocadoNamespace.AvoCalc = function() {
 console.log("Call Init");
 var nameSpace = AvocadoNamespace.AvoCalc;
 nameSpace.init();
-
-nameSpace.calculateEnter.addEventListener("click", function() {
-  console.log("Click WORKED");
-  nameSpace.displayPrice();
-});
-
-nameSpace.priceInput.addEventListener("keyup", function(event) {
-  event.preventDefault();
-  if (event.keyCode == 13) {
-    console.log("Enter worked!")
-    nameSpace.displayPrice();
-  }
-});
