@@ -10,12 +10,18 @@ AvocadoNamespace.AvoCalc = function() {
 
   var calculatePrice = function() {
     var inputtedPrice = parseInt(document.getElementById('valueinput').value);
+    if (isNaN(inputtedPrice)) {
+      inputtedPrice = 0;
+    }
     var priceInAvocados = Math.round(inputtedPrice / avgCA);
     return priceInAvocados;
   }
 
   var calculateWeight = function(numAvocados) {
     var weight = Math.round(numAvocados * avgWeight);
+    if (weight > Number.MAX_SAFE_INTEGER) {
+      weight = "Those avocados are going to spoil";
+    }
     return weight;
   }
 
@@ -23,23 +29,21 @@ AvocadoNamespace.AvoCalc = function() {
     var totalAvocados = calculatePrice();
     var totalWeight = calculateWeight(totalAvocados);
     // priceOutput.innerHTML = totalAvocados;
-    priceOutput.innerHTML = totalAvocados;
+    priceOutput.innerHTML = totalAvocados + " avocados";
     weightOutput.innerHTML = totalWeight + " oz.";
   }
 
   var init = function() {
-    console.log("App Ready");
     var clickCalculate = calculateEnter.addEventListener("click", function(event) {
       event.preventDefault();
       nameSpace.displayResults();
     });
 
-    var enterCalculate = priceInput.addEventListener("keyup", function(event) {
+    var enterCalculate = priceInput.addEventListener("input", function(event) {
       event.preventDefault();
-      if (event.keyCode == 13) {
-        nameSpace.displayResults();
-      }
+      nameSpace.displayResults();
     });
+    console.log("The avocados are ripe!")
   }
 
   var oPublic = {
@@ -54,6 +58,5 @@ AvocadoNamespace.AvoCalc = function() {
 
 }();
 
-console.log("Call Init");
 var nameSpace = AvocadoNamespace.AvoCalc;
 nameSpace.init();
