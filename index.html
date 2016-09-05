@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Avocado</title>
+  <link rel="stylesheet" type="text/css" href="avocado.css">
 </head>
 <body>
-  <div class="calculations">
-    <label for="valueinput">Value Input</label>
-    <span>$</span>
-    <input type="number" id="valueinput">
-    <input type="submit" id="calculateenter" value="Calculate">
+  <div class="wrapper">
+    <div class="calculations">
+      <span>$</span>
+      <input type="number" id="valueinput" placeholder="Enter an amount">
 
-    <div>
-      <p>The value in avocados is...</p>
-      <div id="priceoutput"></div>
-      <div id="weightoutput"></div>
+      <div>
+        <p>The exchange rate to AVC is...</p>
+        <div id="priceoutput"></div>
+        <div id="weightoutput"></div>
+      </div>
     </div>
   </div>
 

@@ -4,7 +4,6 @@ AvocadoNamespace.AvoCalc = function() {
   var avgCA = 1.08;
   var avgWeight = 7.6;
   var priceInput = document.getElementById("valueinput");
-  var calculateEnter = document.getElementById("calculateenter");
   var priceOutput = document.getElementById("priceoutput");
   var weightOutput = document.getElementById("weightoutput");
 
@@ -28,29 +27,23 @@ AvocadoNamespace.AvoCalc = function() {
   var displayResults = function() {
     var totalAvocados = calculatePrice();
     var totalWeight = calculateWeight(totalAvocados);
-    // priceOutput.innerHTML = totalAvocados;
     priceOutput.innerHTML = totalAvocados + " avocados";
     weightOutput.innerHTML = totalWeight + " oz.";
   }
 
-  var init = function() {
-    var clickCalculate = calculateEnter.addEventListener("click", function(event) {
-      event.preventDefault();
-      nameSpace.displayResults();
-    });
+  var enterCalculate = priceInput.addEventListener("input", function(event) {
+    event.preventDefault();
+    nameSpace.displayResults();
+  });
 
-    var enterCalculate = priceInput.addEventListener("input", function(event) {
-      event.preventDefault();
-      nameSpace.displayResults();
-    });
+  var init = function() {
     console.log("The avocados are ripe!")
+    clickCalculate();
+    enterCalculate();
   }
 
   var oPublic = {
     init: init,
-    avgCA: avgCA,
-    priceInput: priceInput,
-    calculateEnter: calculateEnter,
     displayResults: displayResults
   }
 
